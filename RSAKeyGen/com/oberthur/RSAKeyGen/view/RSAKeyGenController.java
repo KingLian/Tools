@@ -9,7 +9,7 @@ import javax.xml.bind.Marshaller;
 
 import com.oberthur.RSAKeyGen.RSAKeyGen;
 import com.oberthur.RSAKeyGen.model.RSAKeyWrapper;
-import com.oberthur.fsitools.ApplicationController;
+import com.oberthur.fsitools.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class RSAKeyGenController extends ApplicationController
+public class RSAKeyGenController extends Controller
 {
 	@FXML
 	private TextField keySize;
@@ -44,7 +44,7 @@ public class RSAKeyGenController extends ApplicationController
 	
 	public static RSAKeyGenController controller;
 	
-	public static Tab initialise() throws ClassNotFoundException, IOException 
+	public static final Tab initialise() throws IOException 
 	{
 		FXMLLoader loader = new FXMLLoader();
 		
@@ -76,7 +76,7 @@ public class RSAKeyGenController extends ApplicationController
 			e.printStackTrace();
 			
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(mainApplication.primaryStage);
+			alert.initOwner(getApplication().primaryStage);
 			alert.setTitle("Error");
 			alert.setHeaderText(e.getClass().getSimpleName());
 			alert.setContentText(e.getMessage());
@@ -116,7 +116,7 @@ public class RSAKeyGenController extends ApplicationController
 		if(modulus.getText().equalsIgnoreCase(""))
 		{
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainApplication.primaryStage);
+			alert.initOwner(getApplication().primaryStage);
 			alert.setTitle("Error");
 			alert.setHeaderText("RSA Key is empty");
 			alert.setContentText("Please generate an RSA key first before save the key!");
@@ -131,12 +131,12 @@ public class RSAKeyGenController extends ApplicationController
 		fileChooser.getExtensionFilters().add(extensionFilter);
 		
 		// Show save file dialog
-		if(mainApplication.getFilePath() != null)
+		if(getApplication().getFilePath() != null)
 		{
-			fileChooser.setInitialDirectory(mainApplication.getFilePath().getParentFile());
+			fileChooser.setInitialDirectory(getApplication().getFilePath().getParentFile());
 		}
 		fileChooser.setInitialFileName("RSA");
-		File file = fileChooser.showSaveDialog(mainApplication.primaryStage);
+		File file = fileChooser.showSaveDialog(getApplication().primaryStage);
 		
 		if(file != null)
 		{
@@ -165,14 +165,14 @@ public class RSAKeyGenController extends ApplicationController
 			marshaller.marshal(wrapper, file);
 			
 			// Save last file path
-			mainApplication.setFilePath(file);
+			getApplication().setFilePath(file);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 			
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(mainApplication.primaryStage);
+			alert.initOwner(getApplication().primaryStage);
 			alert.setTitle("Error");
 			alert.setHeaderText("Could not save key");
 			alert.setContentText(e.getClass().getSimpleName() + ": " +e.getMessage());

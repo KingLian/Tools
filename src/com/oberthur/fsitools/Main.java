@@ -19,7 +19,7 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class MainApplication extends Application 
+public class Main extends Application 
 {
 	public Stage primaryStage;
 	private BorderPane mainLayout;
@@ -40,10 +40,10 @@ public class MainApplication extends Application
 		try {
 			// Load Main Layout from fxml file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApplication.class.getResource("view/MainLayout.fxml"));
+			loader.setLocation(Main.class.getResource("view/MainLayout.fxml"));
 			mainLayout = (BorderPane) loader.load();
 			
-			ApplicationController.mainController = loader.getController();
+			Controller.setController(loader.getController());
 			
 			// Show the scene containing the main layout
 			Scene scene = new Scene(mainLayout);
@@ -59,7 +59,7 @@ public class MainApplication extends Application
 	public void showApplication()
 	{
 		try {
-			ApplicationController.mainApplication = this;
+			Controller.setApplication(this);
 			
 			// Create application tab
 			Tab[] tabs = new Tab[3];
@@ -102,7 +102,7 @@ public class MainApplication extends Application
 	
 	public File getFilePath()
 	{
-		Preferences preferences = Preferences.userNodeForPackage(MainApplication.class);
+		Preferences preferences = Preferences.userNodeForPackage(Main.class);
 		String filePath = preferences.get(lastFolder, null);
 		if(filePath == null)
 		{
@@ -113,7 +113,7 @@ public class MainApplication extends Application
 	
 	public void setFilePath(File file)
 	{
-		Preferences preferences = Preferences.userNodeForPackage(MainApplication.class);
+		Preferences preferences = Preferences.userNodeForPackage(Main.class);
 		if(file == null)
 		{
 			preferences.remove(lastFolder);

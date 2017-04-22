@@ -3,13 +3,13 @@ package com.oberthur.certificateGenerator.view;
 import java.io.IOException;
 
 import com.oberthur.certificateGenerator.CertificateGenerator;
-import com.oberthur.fsitools.ApplicationController;
+import com.oberthur.fsitools.Controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
-public class CertificateGeneratorController extends ApplicationController
+public class CertificateGeneratorController extends Controller
 {
 	
 	public static CertificateGeneratorController controller;
