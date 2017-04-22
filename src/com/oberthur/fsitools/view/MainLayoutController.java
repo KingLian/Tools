@@ -1,5 +1,6 @@
 package com.oberthur.fsitools.view;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -19,6 +20,6 @@ public class MainLayoutController
 	@FXML
 	private void handleExit()
 	{
-		System.exit(0);
+		Platform.exit();
 	}
 }

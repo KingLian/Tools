@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application 
 {
-	public Stage primaryStage;
+	private Stage primaryStage;
 	private BorderPane mainLayout;
 	
 	@Override
@@ -87,7 +87,7 @@ public class Main extends Application
 		}
 	}
 	
-	public Stage getPrimaryStage()
+	public final Stage getPrimaryStage()
 	{
 		return primaryStage;
 	}
@@ -100,7 +100,7 @@ public class Main extends Application
 	
 	private static final String lastFolder = "lastFolder";
 	
-	public File getFilePath()
+	public static final File getFilePath()
 	{
 		Preferences preferences = Preferences.userNodeForPackage(Main.class);
 		String filePath = preferences.get(lastFolder, null);
@@ -111,7 +111,7 @@ public class Main extends Application
 		return new File(filePath);
 	}
 	
-	public void setFilePath(File file)
+	public static final void setFilePath(File file)
 	{
 		Preferences preferences = Preferences.userNodeForPackage(Main.class);
 		if(file == null)

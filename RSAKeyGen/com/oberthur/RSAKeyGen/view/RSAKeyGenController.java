@@ -10,6 +10,7 @@ import javax.xml.bind.Marshaller;
 import com.oberthur.RSAKeyGen.RSAKeyGen;
 import com.oberthur.RSAKeyGen.model.RSAKeyWrapper;
 import com.oberthur.fsitools.Controller;
+import com.oberthur.fsitools.Main;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,7 +77,7 @@ public class RSAKeyGenController extends Controller
 			e.printStackTrace();
 			
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(getApplication().primaryStage);
+			alert.initOwner(getApplication().getPrimaryStage());
 			alert.setTitle("Error");
 			alert.setHeaderText(e.getClass().getSimpleName());
 			alert.setContentText(e.getMessage());
@@ -116,7 +117,7 @@ public class RSAKeyGenController extends Controller
 		if(modulus.getText().equalsIgnoreCase(""))
 		{
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(getApplication().primaryStage);
+			alert.initOwner(getApplication().getPrimaryStage());
 			alert.setTitle("Error");
 			alert.setHeaderText("RSA Key is empty");
 			alert.setContentText("Please generate an RSA key first before save the key!");
@@ -131,12 +132,12 @@ public class RSAKeyGenController extends Controller
 		fileChooser.getExtensionFilters().add(extensionFilter);
 		
 		// Show save file dialog
-		if(getApplication().getFilePath() != null)
+		if(Main.getFilePath() != null)
 		{
-			fileChooser.setInitialDirectory(getApplication().getFilePath().getParentFile());
+			fileChooser.setInitialDirectory(Main.getFilePath().getParentFile());
 		}
 		fileChooser.setInitialFileName("RSA");
-		File file = fileChooser.showSaveDialog(getApplication().primaryStage);
+		File file = fileChooser.showSaveDialog(getApplication().getPrimaryStage());
 		
 		if(file != null)
 		{
@@ -165,14 +166,14 @@ public class RSAKeyGenController extends Controller
 			marshaller.marshal(wrapper, file);
 			
 			// Save last file path
-			getApplication().setFilePath(file);
+			Main.setFilePath(file);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 			
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.initOwner(getApplication().primaryStage);
+			alert.initOwner(getApplication().getPrimaryStage());
 			alert.setTitle("Error");
 			alert.setHeaderText("Could not save key");
 			alert.setContentText(e.getClass().getSimpleName() + ": " +e.getMessage());
